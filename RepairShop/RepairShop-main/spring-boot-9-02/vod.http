@@ -1,0 +1,27 @@
+### get all repairshops
+GET http://localhost:8080/webapi/repairshops
+
+### get all repairshops with params (testowanie query, header i cookie)
+GET http://localhost:8080/webapi/repairshops?phrase=auto
+custom-header: custom-value
+Cookie: some-cookie=some-value
+
+### get repairshop by id
+GET http://localhost:8080/webapi/repairshops/1
+
+### get repairshop by id (wymuszenie formatu XML)
+GET http://localhost:8080/webapi/repairshops/2
+Accept: application/xml
+
+### get repairshops working on car
+GET http://localhost:8080/webapi/cars/1/repairshops
+Accept: application/json
+
+### create new repairshop
+POST http://localhost:8080/webapi/repairshops
+Content-Type: application/json
+
+{
+  "name": "Klinika Samochodowa",
+  "address": "ul Wojewodzka,Katowice"
+}
