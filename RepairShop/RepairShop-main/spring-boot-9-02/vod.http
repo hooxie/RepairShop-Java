@@ -20,8 +20,9 @@ Accept: application/json
 ### create new repairshop
 POST http://localhost:8080/webapi/repairshops
 Content-Type: application/json
+Accept-Language: ja
 
 {
-  "name": "Klinika Samochodowa",
+  "name": "K",
   "address": "ul Wojewodzka,Katowice"
 }

@@ -1,16 +1,23 @@
 package vod.web.rest;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import org.springframework.web.servlet.LocaleResolver;
 import vod.model.Car;
 import vod.model.RepairShop;
 import vod.service.CarService;
 import vod.service.RepairShopService;
 
 import java.util.List;
+import java.util.Locale;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +26,8 @@ import java.util.List;
 public class RepairShopRest {
     private final RepairShopService repairShopService;
     private final CarService carService;
+    private final MessageSource messageSource;
+    private final LocaleResolver localeResolver;
 
     @GetMapping("/repairshops")
     public List<RepairShop> getRepairShops(
@@ -67,11 +76,18 @@ public class RepairShopRest {
     }
 
     @PostMapping("/repairshops")
-    ResponseEntity<RepairShop> addRepairShop(@RequestBody RepairShop repairShop) {
+    ResponseEntity<?> addRepairShop(@Validated @RequestBody RepairShop repairShop, Errors errors, HttpServletRequest request) {
         log.info("about to add new repair shop: {}", repairShop);
-        //TODO validation
-        repairShop = repairShopService.addRepairShop(repairShop);
 
+        if(errors.hasErrors()) {
+            Locale locale = localeResolver.resolveLocale(request);
+            String errorMessage = errors.getAllErrors().stream()
+                    .map(oe->messageSource.getMessage(oe.getCode(),new Object[0],locale))
+                    .reduce("errors:\n",(accu,oe)->accu+oe+"\n");
+            return ResponseEntity.badRequest().body(errorMessage);
+        }
+
+        repairShop = repairShopService.addRepairShop(repairShop);
         log.info("new repair shop added: {}", repairShop);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(repairShop);
