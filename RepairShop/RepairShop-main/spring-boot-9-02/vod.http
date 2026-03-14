@@ -18,11 +18,33 @@ GET http://localhost:8080/webapi/cars/1/repairshops
 Accept: application/json
 
 ### create new repairshop
-POST http://localhost:8080/webapi/repairshops
+POST http://localhost:8080/webapi/repairshop
 Content-Type: application/json
 Accept-Language: ja
 
 {
-  "name": "K",
+  "name": "KLIENTELA",
   "address": "ul Wojewodzka,Katowice"
+}
+
+### get all cars
+GET http://localhost:8080/webapi/cars
+Accept: application/json
+
+### get car by id
+GET http://localhost:8080/webapi/cars/1
+Accept: application/json
+
+### get cars in repairshop
+GET http://localhost:8080/webapi/repairshops/1/cars
+Accept: application/json
+
+### create new car
+POST http://localhost:8080/webapi/car
+Content-Type: application/json
+
+{
+  "brand": "Fiat",
+  "model": "Tipo",
+  "mechanicId": 2
 }

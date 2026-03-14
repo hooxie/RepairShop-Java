@@ -1,5 +1,7 @@
 package vod.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,8 @@ public class Mechanic {
     private int id;
     private String firstName;
     private String lastName;
+
+    @JsonIgnore
     private List<Car> cars = new ArrayList<>(); // relacja 1 do wielu
     // listy zeby przy przełączaniu na SpringData nie było komplikacji
     // lista od seta różni się tym że są w niej powtórzenia oraz trzymamy kolejność wrzucania

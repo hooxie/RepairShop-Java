@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.web.servlet.LocaleResolver;
@@ -28,6 +29,10 @@ public class RepairShopRest {
     private final CarService carService;
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
+    private final RepairShopValidator validator;
+
+    @InitBinder
+    void initBinder(WebDataBinder binder) {binder.addValidators(validator);}
 
     @GetMapping("/repairshops")
     public List<RepairShop> getRepairShops(
@@ -75,7 +80,7 @@ public class RepairShopRest {
         }
     }
 
-    @PostMapping("/repairshops")
+    @PostMapping("/repairshop")
     ResponseEntity<?> addRepairShop(@Validated @RequestBody RepairShop repairShop, Errors errors, HttpServletRequest request) {
         log.info("about to add new repair shop: {}", repairShop);
 
