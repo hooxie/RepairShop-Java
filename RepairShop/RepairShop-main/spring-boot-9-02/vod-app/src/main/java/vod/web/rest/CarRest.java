@@ -5,6 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.LocaleResolver;
@@ -67,9 +69,13 @@ public class CarRest {
     }
 
     @PostMapping("/car")
-    ResponseEntity<?> addCar(@RequestBody CarDTO carDTO)
+    ResponseEntity<?> addCar(@Validated @RequestBody CarDTO carDTO, Errors errors)
     {
         log.info("about to add new car {}",carDTO);
+        if (errors.hasErrors())
+        {
+            return ResponseEntity.badRequest().build();
+        }
         Car car = new Car();
         car.setBrand(carDTO.getBrand());
         car.setModel(carDTO.getModel());

@@ -29,10 +29,10 @@ public class RepairShopRest {
     private final CarService carService;
     private final MessageSource messageSource;
     private final LocaleResolver localeResolver;
-    private final RepairShopValidator validator;
-
-    @InitBinder
-    void initBinder(WebDataBinder binder) {binder.addValidators(validator);}
+//    private final RepairShopValidator validator;
+//
+//    @InitBinder
+//    void initBinder(WebDataBinder binder) {binder.addValidators(validator);}
 
     @GetMapping("/repairshops")
     public List<RepairShop> getRepairShops(
@@ -41,12 +41,14 @@ public class RepairShopRest {
             @CookieValue(value = "some-cookie", required = false) String someCookie
     ) {
         log.info("about to retrieve repair shops list");
-
-        // Logowanie przekazanych parametrów (tak jak w instrukcji)
         log.info("phrase param: " + phrase);
         log.info("custom header param: " + customHeader);
         log.info("some cookie value: " + someCookie);
 
+        if (phrase!=null && phrase.equals("foo"))
+        {
+            throw new IllegalArgumentException("Foo!");
+        }
         List<RepairShop> repairShops = repairShopService.getAllRepairShops();
         log.info("repair shops found: " + repairShops.size());
 
