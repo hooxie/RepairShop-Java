@@ -14,20 +14,19 @@ CREATE TABLE `mechanic`
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `movie`
+CREATE TABLE car
 (
     `id`          int          NOT NULL AUTO_INCREMENT,
-    `poster`      varchar(255) NOT NULL,
-    `rating`      float DEFAULT NULL,
-    `title`       varchar(255) NOT NULL,
-    `director_id` int   DEFAULT NULL,
+    brand      varchar(255) NOT NULL,
+    model       varchar(255) NOT NULL,
+    mechanic_id int   DEFAULT NULL,
     PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `movie_cinema`
+CREATE TABLE car_repairshop
 (
-    `movie_id`  int DEFAULT NULL,
-    `cinema_id` int DEFAULT NULL
+    car_id  int DEFAULT NULL,
+    repairshop_id int DEFAULT NULL
 );
 
 INSERT INTO `repairshop`(`id`, `address`, `name`)
@@ -45,44 +44,44 @@ VALUES ('2', 'Woody', 'Allen');
 INSERT INTO `mechanic`(`id`, `firstname`, `lastname`)
 VALUES ('3', 'Guy', 'Ritchie');
 
-INSERT INTO `movie`(`id`, `poster`, `rating`, `title`, `director_id`)
-VALUES ('1', 'https://static.posters.cz/image/750webp/73584.webp', '2.2', 'Jaws', '1');
-INSERT INTO `movie`(`id`, `poster`, `rating`, `title`, `director_id`)
-VALUES ('2', 'https://fwcdn.pl/fpo/01/79/179/7710998.6.jpg', '8.1', 'Saving Private Ryan', '1');
-INSERT INTO `movie`(`id`, `poster`, `rating`, `title`, `director_id`)
-VALUES ('3', 'https://fwcdn.pl/fpo/12/15/1215/6918508.6.jpg', '7.1', 'E.T.', '1');
-INSERT INTO `movie`(`id`, `poster`, `rating`, `title`, `director_id`)
-VALUES ('4', 'https://upload.wikimedia.org/wikipedia/en/0/05/Vicky_Cristina_Barcelona_film_poster.png', '7.1',
+INSERT INTO car(`id`, brand, model, mechanic_id)
+VALUES ('1', 'https://static.posters.cz/image/750webp/73584.webp', 'Jaws', '1');
+INSERT INTO car(`id`, brand,  model, mechanic_id)
+VALUES ('2', 'https://fwcdn.pl/fpo/01/79/179/7710998.6.jpg',  'Saving Private Ryan', '1');
+INSERT INTO car(`id`, brand,  model, mechanic_id)
+VALUES ('3', 'https://fwcdn.pl/fpo/12/15/1215/6918508.6.jpg',  'E.T.', '1');
+INSERT INTO car(`id`, brand,  model, mechanic_id)
+VALUES ('4', 'https://upload.wikimedia.org/wikipedia/en/0/05/Vicky_Cristina_Barcelona_film_poster.png',
         'Vicky Cristina Barcelona', '2');
-INSERT INTO `movie`(`id`, `poster`, `rating`, `title`, `director_id`)
+INSERT INTO car(`id`, brand,  model, mechanic_id)
 VALUES ('5', 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f3/Manhattan-poster01.jpg/220px-Manhattan-poster01.jpg',
-        '7.1', 'Manhattan', '2');
-INSERT INTO `movie`(`id`, `poster`, `rating`, `title`, `director_id`)
-VALUES ('6', 'https://fwcdn.pl/fpo/13/26/1326/7635628.6.jpg', '7.1', 'Snatch', '3');
-INSERT INTO `movie`(`id`, `poster`, `rating`, `title`, `director_id`)
-VALUES ('7', 'https://fwcdn.pl/fpo/19/97/441997/7239460.6.jpg', '7.1', 'RockNRolla', '3');
+        'Manhattan', '2');
+INSERT INTO car(`id`, brand,  model, mechanic_id)
+VALUES ('6', 'https://fwcdn.pl/fpo/13/26/1326/7635628.6.jpg',  'Snatch', '3');
+INSERT INTO car(`id`, brand,  model, mechanic_id)
+VALUES ('7', 'https://fwcdn.pl/fpo/19/97/441997/7239460.6.jpg',  'RockNRolla', '3');
 
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('1', '1');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('1', '3');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('2', '3');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('3', '1');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('3', '2');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('4', '1');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('4', '3');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('5', '2');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('5', '3');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('6', '1');
-INSERT INTO `movie_cinema`(`movie_id`, `cinema_id`)
+INSERT INTO car_repairshop(car_id, repairshop_id)
 VALUES ('7', '2');
 
 
