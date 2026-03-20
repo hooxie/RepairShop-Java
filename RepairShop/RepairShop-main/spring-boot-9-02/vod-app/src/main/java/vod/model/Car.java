@@ -1,21 +1,30 @@
 package vod.model;
 
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Car {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     private String brand;
     private String model;
 
-    // Relacja wiele do jednego z mechanikiem (odpowiednik reżysera)
+    @ManyToOne
+    @JoinColumn(name = "mechanic_id")
     private Mechanic mechanic;
 
-    // Relacja wiele do wielu z warsztatami (odpowiednik kin)
+    @ManyToMany
+    @JoinTable(name = "car_repairshop",
+        joinColumns = @JoinColumn(name = "car_id",referencedColumnName = "id"),
+        inverseJoinColumns = @JoinColumn(name = "repairshop_id",referencedColumnName = "id")
+    )
     private List<RepairShop> repairShops = new ArrayList<>();
 
     public Car(int id, String brand, String model) {

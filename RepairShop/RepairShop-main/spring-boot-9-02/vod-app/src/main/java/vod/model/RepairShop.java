@@ -1,20 +1,27 @@
 package vod.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "repairshop")
 public class RepairShop {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     @NotNull
     @Size(min=2,max=20)
     private String name;
+    @Column(name = "address")
     private String address; // odpowiednik 'logo' - adres warsztatu
 
+    @ManyToMany(mappedBy = "repairShops")
     @JsonIgnore
     private List<Car> cars = new ArrayList<>(); // struktura kolekcyjna związana z serwisowanymi autami, uproszczone relacja wiele do wiele
 
@@ -23,6 +30,9 @@ public class RepairShop {
         this.name = name;
         this.address = address;
     }
+@Transient
+@JsonIgnore
+    private int foo;
 
     public RepairShop() { // bezparametrowy
     }

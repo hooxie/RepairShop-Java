@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  mysql-books:
+  mysql-rs:
     image: mysql:8.0
     cap_add:
       - SYS_NICE

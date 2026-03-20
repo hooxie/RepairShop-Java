@@ -1,16 +1,23 @@
 package vod.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 public class Mechanic {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    @Column(name = "firstname")
     private String firstName;
+    @Column(name = "lastname")
     private String lastName;
 
+    @OneToMany(mappedBy = "mechanic")
     @JsonIgnore
     private List<Car> cars = new ArrayList<>(); // relacja 1 do wielu
     // listy zeby przy przełączaniu na SpringData nie było komplikacji
