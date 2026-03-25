@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>VOD</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet"/>
+</head>
+<body>
+<header>
+    <a href="./"><h1>Pix</h1></a>
+    <h2 th:text="${title}"></h2>
+    <h3>
+    </h3>
+</header>
+<section>
+
+    <table>
+        <tr>
+            <th>Brand</th>
+            <th>Model</th>
+            <th>Mechanic</th>
+            <th>RepairShops</th>
+        </tr>
+        <tr th:each="c : ${cars}">
+            <td th:text="${c.brand}"></td>
+            <td th:text="${c.model}"></td>
+            <td>
+                <a th:href="@{/cars?mechanicId={id}(id=${c.mechanic.id})}"
+                   th:text="${c.mechanic.firstName} + ' ' + ${c.mechanic.lastName}"></a>
+            </td>
+            <td class="search-container">
+                <a class="search" th:href="@{/repairshops?carId={id}(id=${c.id})}"></a>
+            </td>
+        </tr>
+    </table>
+
+</section>
+<div id="orders">
+</div>
+<footer>
+    ${tip}
+</footer>
+
+</body>
+</html>

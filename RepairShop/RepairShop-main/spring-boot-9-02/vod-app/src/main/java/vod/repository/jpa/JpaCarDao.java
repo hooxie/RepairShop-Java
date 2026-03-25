@@ -12,7 +12,7 @@ import vod.repository.CarDao;
 import java.util.List;
 
 @Repository
-@Primary
+
 public class JpaCarDao implements CarDao {
 
     @PersistenceContext

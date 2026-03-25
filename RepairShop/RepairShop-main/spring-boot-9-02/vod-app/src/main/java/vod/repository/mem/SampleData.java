@@ -20,10 +20,14 @@ class SampleData {
         Mechanic m1 = new Mechanic(1, "Jan", "Kowalski");
         Mechanic m2 = new Mechanic(2, "Piotr", "Nowak");
         Mechanic m3 = new Mechanic(3, "Adam", "Wiśniewski");
+        Mechanic m4 = new Mechanic(4, "Marek", "Zieliński");
+        Mechanic m5 = new Mechanic(5, "Tomasz", "Kaczmarek");
 
         mechanics.add(m1);
         mechanics.add(m2);
         mechanics.add(m3);
+        mechanics.add(m4);
+        mechanics.add(m5);
 
         // Samochody (odpowiednik filmów)
         Car c1 = new Car(1, "Toyota", "Yaris");

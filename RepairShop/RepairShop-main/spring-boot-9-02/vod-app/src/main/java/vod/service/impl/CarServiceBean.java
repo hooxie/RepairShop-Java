@@ -1,8 +1,12 @@
 package vod.service.impl;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 import vod.repository.RepairShopDao;
 import vod.repository.CarDao;
 import vod.repository.MechanicDao;
@@ -15,24 +19,15 @@ import java.util.List;
 import java.util.logging.Logger;
 
 @Service
+@RequiredArgsConstructor
 public class CarServiceBean implements CarService {
 
     private static final Logger log = Logger.getLogger(CarService.class.getName());
 
-    private MechanicDao mechanicDao;
-    private RepairShopDao repairShopDao;
-    private CarDao carDao;
-
-    public CarServiceBean(MechanicDao mechanicDao, RepairShopDao repairShopDao, CarDao carDao) {
-        this.mechanicDao = mechanicDao;
-        this.repairShopDao = repairShopDao;
-        this.carDao = carDao;
-    }
-
-    @Autowired
-    public void setMechanicDao(MechanicDao mechanicDao) {
-        this.mechanicDao = mechanicDao;
-    }
+    private final MechanicDao mechanicDao;
+    private final RepairShopDao repairShopDao;
+    private final CarDao carDao;
+    private final PlatformTransactionManager transactionManager;
 
     @Override
     public List<Car> getAllCars() {
@@ -54,7 +49,21 @@ public class CarServiceBean implements CarService {
 
     @Override
     public Car addCar(Car c) {
-        return carDao.add(c);
+        log.info("about to add car "+c);
+        TransactionStatus ts =  transactionManager.getTransaction(new DefaultTransactionDefinition());
+        try{
+            c=carDao.add(c);
+            if (c.getModel().equals("Tipo")) {
+                throw new RuntimeException("not yet!");
+            }
+            transactionManager.commit(ts);
+        } catch (RuntimeException e)
+        {
+            transactionManager.rollback(ts);
+            throw e;
+        }
+        return c;
+
     }
 
     @Override

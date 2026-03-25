@@ -1,6 +1,7 @@
 package vod.service.impl;
 
 import org.springframework.context.annotation.Scope;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import vod.model.RepairShop;
 import vod.model.Car;
@@ -50,6 +51,7 @@ public class RepairShopServiceBean implements RepairShopService {
         return repairShopDao.findByCar(c);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @Override
     public RepairShop addRepairShop(RepairShop repairShop) {
         log.info("adding new repair shop: " + repairShop);

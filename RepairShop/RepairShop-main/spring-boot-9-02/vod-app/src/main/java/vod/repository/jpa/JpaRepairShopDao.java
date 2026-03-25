@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.List;
 
 @Repository
-@Primary
+
 public class JpaRepairShopDao implements RepairShopDao {
     @PersistenceContext
     private EntityManager entityManager;
@@ -29,7 +29,8 @@ public class JpaRepairShopDao implements RepairShopDao {
     }
     @Override
     public List<RepairShop> findByCar(Car c){
-        return entityManager.createQuery("select rs from RepairShop rs inner join rs.cars car where car=:car")
+        return entityManager
+                .createQuery("select rs from RepairShop rs inner join rs.cars car where car=:car")
                 .setParameter("car",c)
                 .getResultList();
     }
